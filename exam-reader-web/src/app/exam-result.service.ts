@@ -1,4 +1,4 @@
-import { Injectable, isDevMode } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -24,7 +24,7 @@ export interface OcrResult {
   providedIn: 'root'
 })
 export class ExamResultService {
-  private readonly baseUrl = isDevMode() ? 'http://localhost:5197/api' : 'https://exam-reader-g3xb.onrender.com/api';
+  private readonly baseUrl = 'https://exam-reader-g3xb.onrender.com/api';
   private readonly apiUrl = `${this.baseUrl}/exam-results`;
   private readonly ocrUrl = `${this.baseUrl}/ocr`;
 
