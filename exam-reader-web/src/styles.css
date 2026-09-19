@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+/*
+  =============================================================================
+  DOSYA: styles.css
+  AÇIKLAMA:
+  CSS (Cascading Style Sheets - Basamaklı Stil Şablonları), web sayfalarımızın
+  nasıl görüneceğini (renkler, yazı boyutları, boşluklar, hizalamalar vb.) belirler.
+  
+  Bu dosya "GENEL (GLOBAL)" stil dosyasıdır:
+  - Angular'da her bileşenin (örneğin app.css) kendine ait özel bir stil dosyası vardır ve
+    oradaki kurallar sadece o bileşeni etkiler.
+  - Fakat BU dosyadaki (styles.css) kurallar, sitedeki BÜTÜN sayfaları, bütün bileşenleri
+    ve bütün HTML elemanlarını evrensel olarak etkiler.
+  =============================================================================
+*/
+
+/* 
+  Aşağıdaki gibi genel CSS sıfırlamaları (Reset / Normalize) veya yazı tipi yüklemeleri
+  tüm uygulama boyunca geçerli olması için buraya yazılır.
+*/
+
+/* Örnek evrensel ayar: Tüm kutu modellerinin hesaplanmasını kolaylaştırır */
+*, *::before, *::after {
+  box-sizing: border-box; /* Kenarlık ve iç boşlukların toplam genişliğe dahil edilmesini sağlar */
+}
+
+/* Sayfa gövdesinin temel sıfırlamaları */
+body {
+  margin: 0;           /* Tarayıcının varsayılan dış boşluklarını sıfırlar */
+  padding: 0;          /* Tarayıcının varsayılan iç boşluklarını sıfırlar */
+  background-color: #fcfcfc; /* Sayfanın açık tonlu, göz yormayan arka plan rengi */
+  color: #333333;      /* Genel yazı rengi (koyu gri, saf siyah yerine daha yumuşaktır) */
+  -webkit-font-smoothing: antialiased; /* Yazıların kenarlarının daha pürüzsüz ve net görünmesini sağlar */
+}

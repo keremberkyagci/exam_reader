@@ -1,114 +1,213 @@
+/*
+  =============================================================================
+  DOSYA: app.css
+  AÇIKLAMA:
+  Bu dosya, ana bileşenimiz olan App (App Component) için geçerli olan stil kurallarını barındırır.
+  Angular'ın "View Encapsulation" (Kapsülleme) özelliği sayesinde, buradaki stiller
+  sadece bu bileşenin HTML şablonundaki (app.html) elemanları etkiler, diğer bileşenlere sızmaz.
+  
+  Temel Kavramlar:
+  - Seçici (Selector): Hangi HTML etiketini veya sınıfını süsleyeceğimizi belirtir (örn: .page, h1, table).
+  - Özellik (Property): Neyi değiştireceğimizi belirtir (örn: color, margin, padding).
+  - Değer (Value): Özelliğe verilen ayardır (örn: white, 16px, center).
+  =============================================================================
+*/
+
+/* ── Sayfa Ana Taşıyıcısı (Container) ── */
 .page {
-  max-width: 720px;
-  margin: 40px auto;
-  padding: 0 16px;
-  font-family: sans-serif;
+  max-width: 720px;       /* Sayfanın maksimum genişliği 720 pikseli geçemez (büyük ekranlarda çok yayılmasın) */
+  margin: 40px auto;      /* Üstten ve alttan 40px boşluk bırak, sağdan ve soldan 'auto' ile sayfayı tam ortala */
+  padding: 0 16px;        /* Sağdan ve soldan 16px iç boşluk (mobil ekranlarda kenara yapışmaması için) */
+  font-family: sans-serif;/* Tırnaksız, modern ve okunaklı genel yazı tipi ailesi */
 }
 
+/* ── Başlık Stili ── */
 h1 {
-  font-size: 1.6rem;
-  margin-bottom: 20px;
+  font-size: 1.6rem;      /* Yazı boyutu (1.6 katı büyüklük) */
+  margin-bottom: 20px;    /* Başlığın altındaki elemanlarla arasına 20 piksel boşluk koy */
 }
 
-/* ── Toolbar ── */
-.toolbar { margin-bottom: 16px; }
+/* ── Üst Araç Çubuğu (Toolbar) ── */
+.toolbar { 
+  margin-bottom: 16px;    /* Butonun altındaki tabloyla arasına 16px mesafe koyar */
+}
 
+/* ── "+ Yeni Ekle" Butonu ── */
 .btn-add {
-  padding: 9px 18px;
-  background-color: #1976d2;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.95rem;
+  padding: 9px 18px;      /* Düğme içi dolgu: üst/alt 9px, sağ/sol 18px */
+  background-color: #1976d2; /* Hoş bir mavi arka plan rengi */
+  color: white;           /* Butonun yazı rengi beyaz */
+  border: none;           /* Tarayıcının varsayılan kaba çerçevesini kaldır */
+  border-radius: 4px;     /* Köşeleri hafifçe yuvarlat */
+  cursor: pointer;        /* Fare butonun üzerine geldiğinde el işareti (tıklanabilir) yap */
+  font-size: 0.95rem;     /* Düğme metninin boyutu */
 }
-.btn-add:hover { background-color: #1565c0; }
 
-/* ── Tablo ── */
-table { width: 100%; border-collapse: collapse; }
-th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e0e0e0; }
-th { background-color: #f5f5f5; font-weight: 600; }
-tr:hover td { background-color: #fafafa; }
-.empty { color: #999; text-align: center; padding: 24px; }
+/* Fareyle düğmenin üzerine gelindiğinde (:hover): */
+.btn-add:hover { 
+  background-color: #1565c0; /* Rengi biraz daha koyu maviye dönüştürerek basılma hissi ver */
+}
 
-/* ── Bilgi Kutusu (Uyarı) ── */
+/* ── Veri Tablosu (Table) ── */
+table { 
+  width: 100%;            /* Tablo bulunduğu alanın tüm genişliğini (%100) kaplasın */
+  border-collapse: collapse; /* Hücreler arasındaki çift kenarlık boşluklarını birleştirerek tek çizgi yap */
+}
+
+/* Tablo başlıkları (th) ve hücreleri (td) */
+th, td { 
+  text-align: left;       /* Metinleri sola hizala */
+  padding: 10px 12px;     /* Hücre içi ferah boşluklar */
+  border-bottom: 1px solid #e0e0e0; /* Hücrelerin altına açık gri ince bir ayırıcı çizgi çek */
+}
+
+/* Tablo Başlık Satırı */
+th { 
+  background-color: #f5f5f5; /* Başlık kısmına hafif gri zemin ver */
+  font-weight: 600;       /* Başlık yazılarını daha kalın (bold) yap */
+}
+
+/* Fare tablodaki bir satırın üzerine geldiğinde: */
+tr:hover td { 
+  background-color: #fafafa; /* O satırı çok hafif parlatarak okumayı kolaylaştır */
+}
+
+/* Tabloda henüz veri olmadığında veya yüklenirken çıkan mesaj */
+.empty { 
+  color: #999;            /* Soluk gri renk */
+  text-align: center;     /* Yazıyı hücrenin tam ortasına hizala */
+  padding: 24px;          /* Rahat görünmesi için geniş iç boşluk */
+}
+
+/* ── Bilgi Kutusu (Uyarı / Rehber) ── */
 .info-box {
-  background-color: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffeeba;
-  border-radius: 6px;
-  padding: 12px 16px;
-  margin-bottom: 20px;
-  text-align: left;
-  font-size: 0.85rem;
+  background-color: #fff3cd; /* Dikkat çeken açık sarı arka plan */
+  color: #856404;            /* Koyu hardal/kahve sarı metin rengi (okunaklı kontrast) */
+  border: 1px solid #ffeeba; /* Yumuşak sarı kenarlık */
+  border-radius: 6px;        /* Köşeleri ovalleştir */
+  padding: 12px 16px;        /* İç boşluk */
+  margin-bottom: 20px;       /* Alttaki butonlarla arasına boşluk koy */
+  text-align: left;          /* Yazıları sola yasla */
+  font-size: 0.85rem;        /* Biraz daha kompakt yazı boyutu */
 }
-.info-box ul { margin: 8px 0 0 0; padding-left: 20px; }
-.info-box li { margin-bottom: 4px; }
+
+/* Bilgi kutusu içindeki liste (ul) */
+.info-box ul { 
+  margin: 8px 0 0 0; 
+  padding-left: 20px;        /* Madde işaretlerinin görünmesi için soldan girinti */
+}
+
+/* Liste maddeleri (li) */
+.info-box li { 
+  margin-bottom: 4px;        /* Maddeler arasına hafif boşluk */
+}
+
+/* Kod veya özel örnek kelimeler için vurgu (code) */
 .info-box code {
-  background-color: #ffeeba;
-  padding: 2px 5px;
-  border-radius: 3px;
-  font-weight: 600;
-  display: inline-block;
+  background-color: #ffeeba; /* Vurgulanan metin için hafif sarı zemin */
+  padding: 2px 5px;          /* Metin etrafına hafif boşluk */
+  border-radius: 3px;        /* Köşeleri minik yuvarlat */
+  font-weight: 600;          /* Yazıyı kalınlaştır */
+  display: inline-block;     /* Satır içi blok olarak davran */
   margin-top: 2px;
 }
 
-/* ── Bildirim (Toast) ── */
+/* ── Bildirim / Uyarı Balonu (Toast) ── */
 .toast {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 16px 24px;
-  border-radius: 8px;
-  color: white;
-  font-weight: bold;
-  z-index: 9999;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  animation: slideIn 0.3s ease-out;
+  position: fixed;        /* Sayfa kaydırılsa bile ekranda sabit bir yerde kalsın */
+  top: 20px;              /* Ekranın en üstünden 20px aşağıda */
+  right: 20px;            /* Ekranın sağ kenarından 20px içeride */
+  padding: 16px 24px;     /* Geniş iç dolgu */
+  border-radius: 8px;     /* Yuvarlak hatlar */
+  color: white;           /* Beyaz yazı rengi */
+  font-weight: bold;      /* Kalın yazı */
+  z-index: 9999;          /* Ekranda diğer tüm elemanların en üstünde görünsün */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Havada duruyormuş hissi veren gölge efekti */
+  animation: slideIn 0.3s ease-out; /* Sağdan içeri doğru kayarak gelen animasyon */
 }
-.toast.success { background-color: #4CAF50; }
-.toast.error { background-color: #f44336; }
 
+/* Başarılı işlem bildirimi (Yeşil) */
+.toast.success { 
+  background-color: #4CAF50; 
+}
+
+/* Hata bildirimi (Kırmızı) */
+.toast.error { 
+  background-color: #f44336; 
+}
+
+/* Bildirimin sağ taraftan kayarak belirmesini sağlayan animasyon tanımlaması */
 @keyframes slideIn {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from { 
+    transform: translateX(100%); /* Başlangıçta ekranın tamamen sağında (görünmez) */
+    opacity: 0;                  /* Tamamen saydam */
+  }
+  to { 
+    transform: translateX(0);    /* Bitişte kendi yerine yerleşsin */
+    opacity: 1;                  /* Tamamen net ve görünür olsun */
+  }
 }
 
-/* ── Mod seçimi ── */
+/* ── Mod Seçim Kartı (Kamera mı, Dosya mı?) ── */
 .mode-card {
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 24px;
-  max-width: 380px;
-  text-align: center;
+  border: 1px solid #e0e0e0; /* İnce gri çerçeve */
+  border-radius: 8px;        /* Köşe yuvarlama */
+  padding: 24px;             /* Kart içi boşluk */
+  max-width: 380px;          /* Çok genişlememesi için maksimum en sınırı */
+  text-align: center;        /* İçindeki metinleri ortala */
 }
-.mode-title { font-size: 1rem; margin-bottom: 20px; color: #444; }
-.mode-buttons { display: flex; gap: 12px; justify-content: center; margin-bottom: 16px; }
 
+.mode-title { 
+  font-size: 1rem; 
+  margin-bottom: 20px; 
+  color: #444; 
+}
+
+/* Butonları yan yana sıralayan Flexbox düzeni */
+.mode-buttons { 
+  display: flex;             /* İçindeki elemanları yan yana dizer */
+  gap: 12px;                 /* Elemanların arasına 12px boşluk koyar */
+  justify-content: center;   /* Hepsini ortada toplar */
+  margin-bottom: 16px; 
+}
+
+/* Seçenek butonları */
 .btn-mode {
-  flex: 1;
+  flex: 1;                   /* Tüm butonlar eşit genişlikte paylaşılsın */
   padding: 14px 10px;
   font-size: 0.95rem;
-  border: 2px solid #1976d2;
-  color: #1976d2;
-  background: white;
+  border: 2px solid #1976d2; /* Mavi dış çerçeve */
+  color: #1976d2;            /* Mavi yazı rengi */
+  background: white;         /* Beyaz iç dolgu */
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s; /* Renk değişiminin yumuşak geçişli olması için */
 }
-.btn-mode:hover { background: #e3f2fd; }
 
-/* ── Kamera ── */
-.camera-card { max-width: 560px; }
+.btn-mode:hover { 
+  background: #e3f2fd;       /* Fareyle gelindiğinde açık mavi dolgu ver */
+}
+
+/* ── Kamera Görünüm Kartı ── */
+.camera-card { 
+  max-width: 560px;          /* Kameranın maksimum genişliği */
+}
+
+/* Canlı video önizleme penceresi */
 .camera-preview {
-  width: 100%;
+  width: 100%;               /* Kartın tüm genişliğine uyum sağlasın */
   border-radius: 8px;
-  background: #000;
+  background: #000;          /* Kamera açılana kadar siyah zemin göster */
   display: block;
   margin-bottom: 12px;
 }
-.camera-actions { display: flex; gap: 10px; }
 
+.camera-actions { 
+  display: flex; 
+  gap: 10px; 
+}
+
+/* "Fotoğraf Çek" Butonu */
 .btn-capture {
   padding: 10px 22px;
   background: #1976d2;
@@ -118,9 +217,12 @@ tr:hover td { background-color: #fafafa; }
   cursor: pointer;
   font-size: 0.95rem;
 }
-.btn-capture:hover { background: #1565c0; }
 
-/* ── Yükleniyor ── */
+.btn-capture:hover { 
+  background: #1565c0; 
+}
+
+/* ── Yükleniyor Ekranı (OCR İşlenirken) ── */
 .loading-card {
   padding: 32px;
   text-align: center;
@@ -128,30 +230,44 @@ tr:hover td { background-color: #fafafa; }
   color: #555;
 }
 
-/* ── OCR Onay formu ── */
+/* ── OCR Sonuç Onay / Manuel Giriş Form Kartı ── */
 .confirm-card {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 20px 24px;
   max-width: 440px;
 }
-.confirm-title { font-weight: 600; margin-bottom: 16px; }
 
-.form-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+.confirm-title { 
+  font-weight: 600; 
+  margin-bottom: 16px; 
 }
-.form-row label { width: 80px; font-weight: 500; flex-shrink: 0; }
+
+/* Form içindeki satır düzeni (etiket ve giriş kutusu yan yana) */
+.form-row {
+  display: flex;             /* Yan yana dizilimi sağlar */
+  align-items: center;       /* Dikeyde tam ortalar */
+  gap: 12px;                 /* Etiket ile kutu arası mesafe */
+  margin-bottom: 12px;       /* Satırlar arası alt boşluk */
+}
+
+/* Form etiketleri (Örn: "Öğrenci", "Not") */
+.form-row label { 
+  width: 80px;               /* Sabit etiket genişliği (böylece kutular aynı hizada başlar) */
+  font-weight: 500; 
+  flex-shrink: 0;            /* Etiket küçülmeye veya sıkışmaya zorlanmasın */
+}
+
+/* Metin giriş kutuları (input) */
 .form-row input {
-  flex: 1;
+  flex: 1;                   /* Kalan tüm boş alanı doldurur */
   padding: 6px 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #ccc;    /* İnce açık gri kenarlık */
   border-radius: 4px;
   font-size: 0.95rem;
 }
 
+/* Yapay zekanın (OCR) okuduğu ham metni gösteren kutu */
 .raw-text {
   font-size: 0.82rem;
   color: #777;
@@ -159,45 +275,63 @@ tr:hover td { background-color: #fafafa; }
   border-radius: 4px;
   padding: 8px 10px;
   margin: 12px 0;
-  word-break: break-word;
+  word-break: break-word;     /* Çok uzun kelimeler olursa taşmayıp alt satıra geçsin */
 }
-.raw-label { font-weight: 600; color: #555; }
 
-.form-actions { display: flex; gap: 8px; margin-top: 8px; }
+.raw-label { 
+  font-weight: 600; 
+  color: #555; 
+}
 
+/* Formun altındaki onay ve iptal buton grubu */
+.form-actions { 
+  display: flex; 
+  gap: 8px; 
+  margin-top: 8px; 
+}
+
+/* "Kaydet" Butonu (Yeşil) */
 .btn-save {
   padding: 8px 20px;
-  background: #388e3c;
+  background: #388e3c;       /* Yeşil tonu (onay çağrışımı yapar) */
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.9rem;
 }
-.btn-save:hover { background: #2e7d32; }
 
+.btn-save:hover { 
+  background: #2e7d32; 
+}
+
+/* Küçük İptal Butonu (Gri) */
 .btn-cancel-sm {
   padding: 8px 16px;
-  background: #757575;
+  background: #757575;       /* Nötr gri tonu */
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.9rem;
 }
-.btn-cancel-sm:hover { background: #616161; }
 
-/* Spinner Animation */
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #1976d2;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 16px auto;
+.btn-cancel-sm:hover { 
+  background: #616161; 
 }
 
+/* ── Dönen Yükleniyor Çemberi (Spinner Animasyonu) ── */
+.spinner {
+  width: 40px;               /* Çember genişliği */
+  height: 40px;              /* Çember yüksekliği */
+  border: 4px solid #f3f3f3; /* Dış halkanın açık renkli tabanı */
+  border-top: 4px solid #1976d2; /* Halkanın dönen renkli ucu (mavi) */
+  border-radius: 50%;        /* Tam yuvarlak (daire) şekli oluşturur */
+  animation: spin 1s linear infinite; /* 1 saniyede 360 derece kesintisiz dönsün */
+  margin: 0 auto 16px auto;  /* Sayfada yatayda ortala ve altına 16px boşluk koy */
+}
+
+/* Çemberin 0 dereceden 360 dereceye dönme kuralı */
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

@@ -1,13 +1,72 @@
+<!--
+  =============================================================================
+  DOSYA: index.html
+  AÇIKLAMA:
+  Bu dosya, bir Angular web uygulamasının ana giriş kapısıdır (ana HTML sayfasıdır).
+  Kullanıcı web sitemize girdiğinde tarayıcının ilk okuduğu dosya tam olarak budur.
+  Angular bir "Tek Sayfalı Uygulama" (Single Page Application - SPA) mimarisi kullanır.
+  Yani tarayıcı sadece bir kez bu HTML sayfasını yükler; sonrasında sayfa hiç yenilenmeden
+  ekran içeriği dinamik olarak TypeScript ve Angular tarafından değiştirilir.
+  =============================================================================
+-->
 <!doctype html>
-<html lang="en">
+<!-- 
+  <!doctype html>: Tarayıcıya bu belgenin en modern HTML standardı olan HTML5 ile 
+  yazıldığını söyler. Böylece tarayıcı sayfayı doğru ve standartlara uygun çizer.
+-->
+
+<html lang="tr">
+<!-- 
+  <html>: Sayfanın tüm içeriğini kapsayan en dıştaki ana HTML etiketidir.
+-->
+
 <head>
+  <!-- 
+    <head> Bölümü: Sayfada doğrudan gözle görünmeyen ama tarayıcı ve arama motorları için 
+    çok önemli olan "meta" (arka plan) ayarlarının, başlığın ve stil bağlantılarının yer aldığı kısımdır.
+  -->
+
+  <!-- 
+    <meta charset="utf-8">: Sayfadaki karakter kodlamasını UTF-8 (uluslararası standart) olarak belirler.
+    Bu sayede Türkçe karakterler (ç, ğ, ı, ö, ş, ü) ve emojiler ekranda bozulmadan düzgün görünür.
+  -->
   <meta charset="utf-8">
+
+  <!-- 
+    <title>: Tarayıcının sekmesinde (sekme çubuğunda) ve yer imlerinde görünen web sitesinin başlığıdır.
+  -->
   <title>ExamReaderWeb</title>
+
+  <!-- 
+    <base href="/">: Angular'ın yönlendirme ve dosya yolu sistemi için temel adresi belirtir.
+    Uygulama içindeki tüm göreceli adresler bu kök dizin ("/") temel alınarak çözümlenir.
+  -->
   <base href="/">
+
+  <!-- 
+    <meta name="viewport" ...>: Sayfanın cep telefonu, tablet ve bilgisayar ekranlarına
+    otomatik uyum sağlamasını (responsive tasarım) mümkün kılar. Ekran genişliğini cihazın
+    fiziksel genişliğine eşitler.
+  -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- 
+    <link rel="icon" ...>: Tarayıcı sekmesinde başlığın sol tarafında çıkan küçük web sitesi ikonudur (favicon).
+  -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
+  <!-- 
+    <body> Bölümü: Ziyaretçinin ekranda gördüğü tüm görsel içeriklerin barındığı gövdedir.
+  -->
+
+  <!-- 
+    <app-root></app-root>: Angular'ın sihirli yer tutucusudur (Component Selector).
+    Standart HTML'de böyle bir etiket yoktur. Angular başlatıldığında (bootstrap edildiğinde),
+    src/app/app.ts dosyasındaki ana bileşenimizi alır ve oluşturduğu tüm görsel arayüzü
+    (HTML kodlarını) tam bu iki etiketin arasına yerleştirir.
+  -->
   <app-root></app-root>
 </body>
 </html>

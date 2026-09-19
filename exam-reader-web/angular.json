@@ -1,15 +1,26 @@
 {
+  // Bu dosya, Angular CLI (Komut Satırı Arayüzü) için ana yapılandırma dosyasıdır. Projenin dosya yollarını, derleme (build) kurallarını, yerel sunucu (serve) tercihlerini ve kod oluşturma (schematics) şablonlarını yönetir.
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  // Editörlerin (VS Code vb.) dosya yapısını doğrulaması ve otomatik tamamlama ipuçları sunması için şema referansı.
   "version": 1,
+  // Angular CLI konfigürasyon dosya formatı sürümüdür.
   "cli": {
+    // Angular CLI komut satırı aracının genel davranış ayarlarıdır.
     "packageManager": "npm",
-    "analytics": false
+    // Paket yükleme işlemlerinde NPM paket yöneticisinin tercih edileceğini belirtir.
+    "analytics": false,
+    // Google'a anonim kullanım ve telemetri verilerinin gönderilmesini engeller.
   },
   "newProjectRoot": "projects",
+  // Projeye ileride yeni alt kütüphane veya uygulamalar eklenirse bunların açılacağı klasör yolu.
   "projects": {
+    // Bu çalışma alanında bulunan tüm projelerin yapılandırmalarını içerir.
     "exam-reader-web": {
+      // Sınav okuma sisteminin web arayüzüne ait özel ayarlar.
       "projectType": "application",
+      // Projenin bir kütüphane değil, bağımsız çalışan bir web uygulaması (application) olduğunu belirtir.
       "schematics": {
+        // 'ng generate' komutuyla yeni dosya üretirken uygulanacak varsayılan şablon kurallarıdır. Burada tüm test (.spec.ts) dosyalarının otomatik üretimi kapatılarak projenin temiz kalması sağlanmıştır.
         "@schematics/angular:class": {
           "skipTests": true
         },
@@ -36,26 +47,39 @@
         }
       },
       "root": "",
+      // Projenin kök dizini (ana klasörde yer aldığından boştur).
       "sourceRoot": "src",
+      // Tüm kaynak kodların (HTML, CSS, TypeScript) bulunduğu ana klasördür.
       "prefix": "app",
+      // Üretilecek yeni bileşenlerin HTML etiketlerinin başına gelecek ön ek (örneğin: <app-header>).
       "architect": {
+        // Projenin derleme (build), sunma (serve) gibi büyük mimari komutlarının tanımlandığı yerdir.
         "build": {
+          // TypeScript kodlarını internet tarayıcısının anlayabileceği JavaScript, HTML ve CSS paketine dönüştürme (derleme) ayarları.
           "builder": "@angular/build:application",
+          // Modern esbuild/Vite tabanlı yeni nesil Angular uygulama derleyicisi motorudur.
           "options": {
+            // Derleyicinin temel dosya yolları ve kaynak ayarlarıdır.
             "browser": "src/main.ts",
+            // Uygulamanın çalışmaya başladığı ilk giriş TypeScript dosyasıdır.
             "tsConfig": "tsconfig.app.json",
+            // Uygulama derlenirken baz alınacak TypeScript derleme ayar dosyasıdır.
             "assets": [
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
+            // Resimler, fontlar veya favicon gibi doğrudan kopyalanacak statik medya dosyalarının klasörüdür (public).
             "styles": [
               "src/styles.css"
-            ]
+            ],
+            // Tüm projede evrensel olarak geçerli olan ana CSS stil dosyasıdır.
           },
           "configurations": {
+            // Farklı ortamlar (canlı ortam vs. geliştirme ortamı) için özelleştirilmiş derleme seçenekleridir.
             "production": {
+              // Canlı sunucuya yüklemek üzere maksimum hız, dosya sıkıştırma ve güvenlik sağlayan profil.
               "budgets": [
                 {
                   "type": "initial",
@@ -68,18 +92,27 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              // Üretilen dosya boyutlarının aşırı büyüyüp sayfanın geç açılmasını önleyen boyut limitleridir.
+              "outputHashing": "all",
+              // Derlenen dosya adlarına rastgele benzersiz bir hash ekler (örn: main.a7b9c.js); böylece tarayıcılar güncellenen kodları önbellekten (cache) değil sunucudan çeker.
             },
             "development": {
+              // Geliştirme esnasında derlemenin çok hızlı bitmesi ve kolay hata ayıklanabilmesi için kullanılan profil.
               "optimization": false,
+              // Kod sıkıştırma ve küçültmeyi kapatır, böylece hata ararken kodlar okunabilir kalır.
               "extractLicenses": false,
-              "sourceMap": true
+              // Lisans dosyalarını ayıklama işlemini atlayarak derlemeyi hızlandırır.
+              "sourceMap": true,
+              // Tarayıcı F12 geliştirici araçlarında doğrudan orijinal TypeScript satırlarını görebilmemizi sağlayan harita dosyaları üretir.
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "production",
+          // 'ng build' komutu parametresiz girildiğinde canlı (production) ayarlarının kullanılacağını belirtir.
         },
         "serve": {
+          // 'ng serve' komutuyla çalışan yerel geliştirme web sunucusu ayarlarıdır.
           "builder": "@angular/build:dev-server",
+          // Geliştirme sunucusunu ve canlı tarayıcı yenilemeyi (live reload) yöneten motor.
           "configurations": {
             "production": {
               "buildTarget": "exam-reader-web:build:production"
@@ -88,7 +121,8 @@
               "buildTarget": "exam-reader-web:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          // Geliştirme sunucusu varsayılan olarak 'development' ayarlarıyla ayağa kalkar.
         }
       }
     }

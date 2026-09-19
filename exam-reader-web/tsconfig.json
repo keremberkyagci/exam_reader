@@ -1,25 +1,42 @@
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
+  // Bu dosya, TypeScript derleyicisinin (tsc) ve Angular şablon derleyicisinin kurallarını, katı tip denetimlerini ve JavaScript çıktı hedeflerini belirleyen ana yapılandırma dosyasıdır.
+  // Dosya her kaydedildiğinde arka planda otomatik bağımsız derleme yapılmasını kapatır, derleme görevini Angular CLI'ye devreder.
   "compileOnSave": false,
   "compilerOptions": {
+    // TypeScript'in kodlarımızı denetlerken ve JavaScript'e çevirirken uygulayacağı katı kurallar kümesidir.
+    // Bir alt sınıfın üst sınıfa ait bir fonksiyonu ezdiğinde açıkça 'override' kelimesini kullanmasını zorunlu kılarak kazara yapılan hataları engeller.
     "noImplicitOverride": true,
+    // Dinamik anahtarlara sahip nesnelerde obj['ozellik'] yerine obj.ozellik yazılmasını kısıtlayarak tip güvenliğini artırır.
     "noPropertyAccessFromIndexSignature": true,
+    // Bir fonksiyonun tüm olasılıklarda (if/else durumlarında) mutlaka bir değer döndürdüğünden emin olur, unutulan return satırlarını hata olarak yakalar.
     "noImplicitReturns": true,
+    // switch-case bloklarında unutulan 'break' komutları yüzünden bir sonraki duruma kontrolsüzce geçilmesini önler.
     "noFallthroughCasesInSwitch": true,
+    // Dışarıdan yüklenen node_modules kütüphanelerinin tip dosyalarını (.d.ts) her derlemede tekrar tekrar denetlemeyi atlayarak derleme sürecini ciddi oranda hızlandırır.
     "skipLibCheck": true,
+    // Her TypeScript dosyasının başka dosyalara bağımlı olmadan bağımsız olarak dönüştürülebileceğini garanti eder (esbuild ve Vite için gereklidir).
     "isolatedModules": true,
+    // Angular'ın kalbi olan @Component, @Injectable gibi dekoratör (decorator) sözdiziminin çalışmasını sağlar.
     "experimentalDecorators": true,
+    // Derleyicinin ürettiği ortak yardımcı kodları her dosyaya ayrı ayrı yapıştırmak yerine 'tslib' kütüphanesinden tek bir yerden çekerek dosya boyutunu küçültür.
     "importHelpers": true,
+    // Yazılan kodların dönüştürüleceği hedef JavaScript standardıdır. 'ES2022', modern internet tarayıcılarının desteklediği güncel ve hızlı JavaScript sürümüdür.
     "target": "ES2022",
+    // Modül içe/dışa aktarma (import/export) yapısını olduğu gibi koruyarak paketleme işlemini Angular derleyicisine bırakır.
     "module": "preserve"
   },
   "angularCompilerOptions": {
+    // Angular'ın HTML şablonlarını ve bağımlılık enjeksiyonlarını denetleyen özel derleyici kurallarıdır.
+    // Eski Angular sürümlerine ait eski çoklu dil (i18n) mesaj kimliği oluşturma sistemini kapatır.
     "enableI18nLegacyMessageIdFormat": false,
+    // Servislerin (Dependency Injection) yapıcı metodlarında (constructor) tiplerinin açık ve net belirtilmesini zorunlu kılar.
     "strictInjectionParameters": true,
+    // HTML şablonu içinde kullanılan bileşen değişkenlerinin (@Input) erişim izinlerini (public, private) katı şekilde denetler.
     "strictInputAccessModifiers": true
   },
+  // Doğrudan bu dosya üzerinden derlenecek tekil dosyalar listesidir (boş bırakılarak alt konfigürasyonlara yönlendirilmiştir).
   "files": [],
+  // Büyük projeleri daha hızlı derlemek için alt projelere bölünmüş TypeScript referanslarıdır. Asıl uygulama ayarları 'tsconfig.app.json' içindedir.
   "references": [
     {
       "path": "./tsconfig.app.json"

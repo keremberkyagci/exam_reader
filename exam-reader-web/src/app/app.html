@@ -1,13 +1,39 @@
+<!--
+  =============================================================================
+  DOSYA: app.html
+  AÇIKLAMA:
+  Bu dosya, uygulamamızın kullanıcı arayüzünü (ekranda görünen butonları, tabloları,
+  formları ve yazıları) tanımlayan Angular HTML şablonudur (Template).
+  
+  Angular'a Özgü Temel Özellikler:
+  1. İnterpolasyon ({{ veri }}): TypeScript dosyasındaki değişkenlerin değerini ekrana basar.
+  2. Olay Bağlama ((click)="fonksiyon()"): Kullanıcı bir şeye tıkladığında TS kodundaki fonksiyonu çağırır.
+  3. Özellik Bağlama ([ozellik]="deger"): HTML özelliklerini dinamik değişkenlere bağlar.
+  4. İki Yönlü Bağlama ([(ngModel)]="degisken"): Hem TS'deki değeri kutuya yazar, hem kutuya yazılanı anında TS'ye aktarır.
+  5. Modern Kontrol Akışı (@if, @for): Koşullara göre HTML parçalarını gösterip gizler ya da listeleri döngüyle basar.
+  =============================================================================
+-->
+
 <div class="page">
 
+  <!-- Sayfa Ana Başlığı -->
   <h1>Öğrenci Notları</h1>
 
-  <!-- ── AŞAMA: LİSTE ── -->
+  <!-- 
+    ===========================================================================
+    AŞAMA 1: LİSTE GÖRÜNÜMÜ (step === 'list')
+    Kullanıcı uygulamayı ilk açtığında veya işlem tamamlandığında bu alan görünür.
+    Burada kaydedilmiş öğrenci notlarının tablosu ve yeni ekleme butonu yer alır.
+    ===========================================================================
+  -->
   @if (step === 'list') {
+    <!-- Üst Araç Çubuğu: Yeni not ekleme sürecini başlatan buton -->
     <div class="toolbar">
+      <!-- (click)="openModeSelect()": Butona tıklandığında TS'deki openModeSelect metodunu çalıştırır -->
       <button class="btn-add" (click)="openModeSelect()">+ Öğrenci Notu Ekle</button>
     </div>
 
+    <!-- Öğrenci Sonuçları Tablosu -->
     <table>
       <thead>
         <tr>
@@ -17,34 +43,65 @@
         </tr>
       </thead>
       <tbody>
+        <!-- 
+          @for döngüsü: 'examResults' dizisindeki her bir öğrenci kaydını tek tek dolaşır
+          ve her biri için yeni bir <tr> (tablo satırı) üretir.
+          'track result.id': Angular'ın performansı artırmak için her satırı benzersiz kimliğiyle (id) takip etmesini sağlar.
+        -->
         @for (result of examResults; track result.id) {
           <tr>
+            <!-- {{ result.studentName }}: Öğrencinin adını yazdırır -->
             <td>{{ result.studentName }}</td>
+            <!-- {{ result.score }}: Öğrencinin aldığı notu yazdırır -->
             <td>{{ result.score }}</td>
+            <!-- 
+              Pipe (Boru) Kullanımı: '| date:'dd.MM.yyyy HH:mm''
+              Sunucudan gelen karmaşık tarih bilgisini (ISO formatı) kullanıcının anlayacağı
+              'Gün.Ay.Yıl Saat:Dakika' formatına dönüştürerek ekrana yansıtır.
+            -->
             <td>{{ result.createdAt | date:'dd.MM.yyyy HH:mm' }}</td>
           </tr>
         }
+
+        <!-- Eğer veriler henüz sunucudan yükleniyorsa (isLoading === true): -->
         @if (isLoading) {
           <tr><td colspan="3" class="empty">Yükleniyor...</td></tr>
-        } @else if (examResults.length === 0) {
+        } 
+        <!-- Yükleme bitti ama hiç kayıt yoksa (liste boşsa): -->
+        @else if (examResults.length === 0) {
           <tr><td colspan="3" class="empty">Henüz kayıt yok.</td></tr>
         }
       </tbody>
     </table>
   }
 
-  <!-- ── BİLDİRİM (TOAST) ── -->
+  <!-- 
+    ===========================================================================
+    BİLDİRİM BALONU (TOAST)
+    Kullanıcı bir işlem yaptığında (kayıt başarılı veya hata durumunda),
+    ekranın sağ üst köşesinde geçici olarak beliren uyarı kutusudur.
+    notification.type boş değilse (@if) ekranda gösterilir.
+    [class.success] ve [class.error]: Duruma göre yeşil veya kırmızı CSS sınıfını ekler.
+    ===========================================================================
+  -->
   @if (notification.type) {
     <div class="toast" [class.success]="notification.type === 'success'" [class.error]="notification.type === 'error'">
       {{ notification.message }}
     </div>
   }
 
-  <!-- ── AŞAMA: MOD SEÇİMİ ── -->
+  <!-- 
+    ===========================================================================
+    AŞAMA 2: MOD SEÇİMİ (step === 'mode-select')
+    Kullanıcı "+ Öğrenci Notu Ekle" butonuna bastığında karşısına çıkan menü.
+    Kamerayı açma, galeriden dosya seçme veya elle yazarak girme seçeneklerini sunar.
+    ===========================================================================
+  -->
   @if (step === 'mode-select') {
     <div class="mode-card">
       <p class="mode-title">Notu nasıl eklemek istersiniz?</p>
 
+      <!-- OCR'ın (Yazı Okuma Teknolojisinin) başarılı çalışması için kullanıcıya verilen rehber -->
       <div class="info-box">
         <strong>⚠️ OCR Kullanım Kuralları:</strong>
         <ul>
@@ -57,19 +114,39 @@
         </ul>
       </div>
 
+      <!-- Kullanıcının tercih yapabileceği butonlar -->
       <div class="mode-buttons">
         <button class="btn-mode" (click)="openCamera()">📷 Kamerayı Aç</button>
         <button class="btn-mode" (click)="openFilePicker()">🖼️ Fotoğraf Seç</button>
         <button class="btn-mode" (click)="openManualEntry()">✏️ Manuel Ekle</button>
       </div>
+      <!-- Vazgeçme / Geri dönme butonu -->
       <button class="btn-cancel-sm" (click)="cancel()">İptal</button>
     </div>
+
+    <!-- 
+      Gizli Dosya Seçim Girişi (#fileInput):
+      Kullanıcı arayüzünde çirkin bir "Dosya Seç" butonu görünmesin diye 'display:none' ile gizledik.
+      "Fotoğraf Seç" butonuna basıldığında TypeScript bu gizli input'u programatik olarak tıklar.
+      (change)="onFileSelected($event)": Kullanıcı bir dosya seçtiğinde bu fonksiyon devreye girer.
+    -->
     <input #fileInput type="file" accept="image/*" style="display:none" (change)="onFileSelected($event)" />
   }
 
-  <!-- ── AŞAMA: KAMERA ── -->
+  <!-- 
+    ===========================================================================
+    AŞAMA 3: CANLI KAMERA GÖRÜNTÜSÜ (step === 'camera')
+    Kullanıcı kamerasını kullanarak doğrudan fotoğraf çekmek istediğinde çalışır.
+    ===========================================================================
+  -->
   @if (step === 'camera') {
     <div class="camera-card">
+      <!-- 
+        <video #videoEl>: Cihazın kamerasından gelen canlı görüntüyü ekrana yansıtan video kutusu.
+        #videoEl: Şablon referans değişkenidir. TypeScript kodunda @ViewChild ile yakalanıp kamera akışı buraya bağlanır.
+        autoplay: Video otomatik başlasın.
+        playsinline: Mobilde tam ekran açılmak yerine sayfa içinde oynatılsın.
+      -->
       <video #videoEl autoplay playsinline class="camera-preview"></video>
       <div class="camera-actions">
         <button class="btn-capture" (click)="capturePhoto()">📸 Fotoğraf Çek</button>
@@ -78,7 +155,13 @@
     </div>
   }
 
-  <!-- ── AŞAMA: OCR YÜKLENİYOR ── -->
+  <!-- 
+    ===========================================================================
+    AŞAMA 4: OCR YÜKLENİYOR BEKLEME EKRANI (step === 'ocr-loading')
+    Fotoğraf sunucuya gönderildiğinde ve yapay zeka fotoğrafı incelerken
+    kullanıcıya işlemin devam ettiğini gösteren dönen çember animasyonu (spinner).
+    ===========================================================================
+  -->
   @if (step === 'ocr-loading') {
     <div class="loading-card">
       <div class="spinner"></div>
@@ -86,26 +169,44 @@
     </div>
   }
 
-  <!-- ── AŞAMA: OCR ONAY / MANUEL FORM ── -->
+  <!-- 
+    ===========================================================================
+    AŞAMA 5: OCR ONAYI VEYA MANUEL GİRİŞ FORMU 
+    (step === 'ocr-confirm' || step === 'manual-entry')
+    Yapay zekanın fotoğraftan okuduğu sonuçları kullanıcının kontrol etmesi ve
+    gerekirse elle düzeltip onaylaması veya tamamen elle not girmesi için form.
+    ===========================================================================
+  -->
   @if (step === 'ocr-confirm' || step === 'manual-entry') {
     <div class="confirm-card">
+      <!-- Başlık duruma göre dinamik değişir (Ternary / Üçlü Şart Operatörü) -->
       <p class="confirm-title">{{ step === 'manual-entry' ? 'Manuel Not Ekle:' : 'OCR sonucunu kontrol edin:' }}</p>
 
+      <!-- Öğrenci Adı Giriş Alanı -->
       <div class="form-row">
         <label>Öğrenci</label>
+        <!-- 
+          [(ngModel)]="ocrForm.studentName": İki yönlü veri bağlama (Two-Way Binding).
+          Kutuda yazan değer anında TypeScript'teki 'ocrForm.studentName' değişkenine yazılır,
+          değişken güncellenirse kutudaki yazı da anında güncellenir.
+        -->
         <input type="text" [(ngModel)]="ocrForm.studentName" />
       </div>
+
+      <!-- Öğrenci Notu Giriş Alanı -->
       <div class="form-row">
         <label>Not</label>
         <input type="number" [(ngModel)]="ocrForm.score" min="0" max="100" />
       </div>
 
+      <!-- Yalnızca OCR ile okuma yapıldıysa, yapay zekanın algıladığı ham metni gösterir -->
       @if (step === 'ocr-confirm') {
       <div class="raw-text">
         <span class="raw-label">Ham metin:</span> {{ rawText }}
       </div>
       }
 
+      <!-- Form Onaylama ve İptal Butonları -->
       <div class="form-actions">
         <button class="btn-save" (click)="save()">Kaydet</button>
         <button class="btn-cancel-sm" (click)="cancel()">İptal</button>

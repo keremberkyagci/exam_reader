@@ -1,21 +1,34 @@
-﻿{
+{
+  "_comment": "Bu dosya, Visual Studio veya 'dotnet run' komutu ile uygulama yerel bilgisayarda başlatılırken hangi portların, ortam değişkenlerinin ve başlatma ayarlarının kullanılacağını tanımlayan profilleri içerir. Yalnızca yerel geliştirmede kullanılır, sunucuya dağıtıldığında (production) dikkate alınmaz.",
   "$schema": "https://json.schemastore.org/launchsettings.json",
+  "_comment_$schema": "Kod editörlerine (Visual Studio, VS Code vb.) bu dosyanın kurallarını ve otomatik tamamlama özelliklerini tanıtan şema bağlantısıdır.",
   "profiles": {
+    "_comment_profiles": "Uygulamanın farklı senaryolarda (örneğin sadece HTTP veya HTTPS destekli) nasıl çalıştırılacağını belirleyen başlatma profilleri listesidir.",
     "http": {
+      "_comment_profile_http": "Uygulamayı yalnızca şifrelenmemiş standart HTTP protokolü üzerinden çalıştıran geliştirme profilidir.",
+      "_comment_commandName": "Uygulamanın nasıl çalıştırılacağını belirtir. 'Project' değeri, uygulamanın harici bir web sunucusu (IIS gibi) yerine doğrudan .NET Core Kestrel motoruyla çalışacağını ifade eder.",
       "commandName": "Project",
+      "_comment_dotnetRunMessages": "True yapıldığında terminalde uygulamanın hangi adreste çalıştığı gibi başlangıç bildirim mesajlarının görünmesini sağlar.",
       "dotnetRunMessages": true,
+      "_comment_launchBrowser": "Uygulama 'Run' yapıldığında internet tarayıcısının otomatik olarak yeni bir sekmede açılıp açılmayacağını belirler. False ayarlanarak otomatik sekme açılışı kapatılmıştır.",
       "launchBrowser": false,
+      "_comment_applicationUrl": "API'nin dinleme yapacağı yerel ağ adresi ve kapı (port) numarasıdır. 'localhost' kendi bilgisayarınızı, '5197' ise bu uygulamaya tahsis edilen kapıyı temsil eder.",
       "applicationUrl": "http://localhost:5197",
       "environmentVariables": {
+        "_comment_environmentVariables": "Uygulama çalıştırılırken belleğe yüklenen ortam değişkenleridir.",
+        "_comment_ASPNETCORE_ENVIRONMENT": "Uygulamanın hangi ortamda çalıştığını gösterir. 'Development' olarak ayarlandığında detaylı hata sayfaları gösterilir ve appsettings.Development.json ayarları yüklenir.",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "https": {
+      "_comment_profile_https": "Uygulamayı hem güvenli şifrelenmiş HTTPS hem de düz HTTP üzerinden çalıştıran profil.",
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
+      "_comment_applicationUrl": "Uygulamanın iki farklı port üzerinden dinleneceğini belirtir: Güvenli HTTPS için 7245 portu, standart HTTP için 5197 portu.",
       "applicationUrl": "https://localhost:7245;http://localhost:5197",
       "environmentVariables": {
+        "_comment_ASPNETCORE_ENVIRONMENT": "Çalışma ortamının 'Development' (Geliştirme) olduğunu belirtir.",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
