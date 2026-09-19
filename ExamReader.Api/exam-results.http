@@ -1,0 +1,62 @@
+@baseUrl = http://localhost:5197
+
+### Tüm notları getir
+GET {{baseUrl}}/api/exam-results
+Accept: application/json
+
+###
+
+### Öğrenci 1 ekle
+POST {{baseUrl}}/api/exam-results
+Content-Type: application/json
+
+{
+  "studentName": "Ali İhsan",
+  "score": 80
+}
+
+###
+
+### Öğrenci 2 ekle
+POST {{baseUrl}}/api/exam-results
+Content-Type: application/json
+
+{
+  "studentName": "Ayşe Kaya",
+  "score": 95
+}
+
+###
+
+### Öğrenci 3 ekle
+POST {{baseUrl}}/api/exam-results
+Content-Type: application/json
+
+{
+  "studentName": "Mehmet Yılmaz",
+  "score": 67
+}
+
+###
+
+### Öğrenci 4 ekle
+POST {{baseUrl}}/api/exam-results
+Content-Type: application/json
+
+{
+  "studentName": "Zeynep Demir",
+  "score": 88
+}
+
+###
+
+### Geçersiz istek (score > 100 → 400 BadRequest)
+POST {{baseUrl}}/api/exam-results
+Content-Type: application/json
+
+{
+  "studentName": "Test Öğrenci",
+  "score": 150
+}
+
+###

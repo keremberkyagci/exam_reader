@@ -1,0 +1,27 @@
+# .NET Core
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+*.db
+*.db-shm
+*.db-wal
+
+# Ortam değişkenleri ve şifreler (ÇOK ÖNEMLİ)
+.env
+appsettings.Development.json
+secrets.json
+
+# Angular / Node.js
+node_modules/
+dist/
+.angular/
+npm-debug.log
+
+# Mac
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/

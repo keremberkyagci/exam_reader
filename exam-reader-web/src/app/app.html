@@ -1,0 +1,115 @@
+<div class="page">
+
+  <h1>Öğrenci Notları</h1>
+
+  <!-- ── AŞAMA: LİSTE ── -->
+  @if (step === 'list') {
+    <div class="toolbar">
+      <button class="btn-add" (click)="openModeSelect()">+ Öğrenci Notu Ekle</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Öğrenci</th>
+          <th>Not</th>
+          <th>Tarih</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (result of examResults; track result.id) {
+          <tr>
+            <td>{{ result.studentName }}</td>
+            <td>{{ result.score }}</td>
+            <td>{{ result.createdAt | date:'dd.MM.yyyy HH:mm' }}</td>
+          </tr>
+        }
+        @if (isLoading) {
+          <tr><td colspan="3" class="empty">Yükleniyor...</td></tr>
+        } @else if (examResults.length === 0) {
+          <tr><td colspan="3" class="empty">Henüz kayıt yok.</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  <!-- ── BİLDİRİM (TOAST) ── -->
+  @if (notification.type) {
+    <div class="toast" [class.success]="notification.type === 'success'" [class.error]="notification.type === 'error'">
+      {{ notification.message }}
+    </div>
+  }
+
+  <!-- ── AŞAMA: MOD SEÇİMİ ── -->
+  @if (step === 'mode-select') {
+    <div class="mode-card">
+      <p class="mode-title">Notu nasıl eklemek istersiniz?</p>
+
+      <div class="info-box">
+        <strong>⚠️ OCR Kullanım Kuralları:</strong>
+        <ul>
+          <li><strong>El yazısı geçersizdir.</strong> Lütfen büyük ve ayrık (BLOK) harflerle yazın.</li>
+          <li>Kağıttaki format tam olarak şöyle olmalıdır:<br/>
+            <code>öğrenci adı : ALI IHSAN</code><br/>
+            <code>öğrenci notu : 80</code>
+          </li>
+          <li>Fotoğrafı iyi ışıkta, gölgesiz ve net çekin. (Örnek olarak bir Word dosyasından ekran görüntüsü de alabilirsiniz.)</li>
+        </ul>
+      </div>
+
+      <div class="mode-buttons">
+        <button class="btn-mode" (click)="openCamera()">📷 Kamerayı Aç</button>
+        <button class="btn-mode" (click)="openFilePicker()">🖼️ Fotoğraf Seç</button>
+        <button class="btn-mode" (click)="openManualEntry()">✏️ Manuel Ekle</button>
+      </div>
+      <button class="btn-cancel-sm" (click)="cancel()">İptal</button>
+    </div>
+    <input #fileInput type="file" accept="image/*" style="display:none" (change)="onFileSelected($event)" />
+  }
+
+  <!-- ── AŞAMA: KAMERA ── -->
+  @if (step === 'camera') {
+    <div class="camera-card">
+      <video #videoEl autoplay playsinline class="camera-preview"></video>
+      <div class="camera-actions">
+        <button class="btn-capture" (click)="capturePhoto()">📸 Fotoğraf Çek</button>
+        <button class="btn-cancel-sm" (click)="cancel()">İptal</button>
+      </div>
+    </div>
+  }
+
+  <!-- ── AŞAMA: OCR YÜKLENİYOR ── -->
+  @if (step === 'ocr-loading') {
+    <div class="loading-card">
+      <p>🔍 Not okunuyor...</p>
+    </div>
+  }
+
+  <!-- ── AŞAMA: OCR ONAY / MANUEL FORM ── -->
+  @if (step === 'ocr-confirm' || step === 'manual-entry') {
+    <div class="confirm-card">
+      <p class="confirm-title">{{ step === 'manual-entry' ? 'Manuel Not Ekle:' : 'OCR sonucunu kontrol edin:' }}</p>
+
+      <div class="form-row">
+        <label>Öğrenci</label>
+        <input type="text" [(ngModel)]="ocrForm.studentName" />
+      </div>
+      <div class="form-row">
+        <label>Not</label>
+        <input type="number" [(ngModel)]="ocrForm.score" min="0" max="100" />
+      </div>
+
+      @if (step === 'ocr-confirm') {
+      <div class="raw-text">
+        <span class="raw-label">Ham metin:</span> {{ rawText }}
+      </div>
+      }
+
+      <div class="form-actions">
+        <button class="btn-save" (click)="save()">Kaydet</button>
+        <button class="btn-cancel-sm" (click)="cancel()">İptal</button>
+      </div>
+    </div>
+  }
+
+</div>
