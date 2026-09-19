@@ -16,7 +16,8 @@ var allowedCorsOrigin = builder.Configuration["ALLOWED_CORS_ORIGIN"] ?? "http://
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Angular", policy =>
-        policy.WithOrigins(allowedCorsOrigin)
+        policy.WithOrigins(allowedCorsOrigin, "https://keremberkyagci.github.io", "http://localhost:4200")
+              .SetIsOriginAllowedToAllowWildcardSubdomains()
               .AllowAnyHeader()
               .AllowAnyMethod());
 });
