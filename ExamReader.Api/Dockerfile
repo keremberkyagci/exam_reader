@@ -5,7 +5,7 @@ EXPOSE 8080
 
 # Tesseract ve Türkçe dil paketini yükle
 RUN apt-get update && \
-    apt-get install -y tesseract-ocr tesseract-ocr-tur libtesseract-dev && \
+    apt-get install -y tesseract-ocr tesseract-ocr-tur libtesseract-dev libleptonica-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -26,9 +26,8 @@ RUN dotnet publish "ExamReader.Api.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY tessdata ./tessdata
 
-# Tesseract'ın tessdata klasörünün nerede olduğunu belirt (Linux için genelde /usr/share/tesseract-ocr/4.00/tessdata şeklindedir)
-# C# kodu içindeki _tessDataPath = "./tessdata" mantığını bozmamak adına Linux'un tessdata'sını uygulamanın içine kopyalıyoruz
 RUN ln -s /usr/share/tesseract-ocr/5/tessdata /app/tessdata || \
     ln -s /usr/share/tesseract-ocr/4.00/tessdata /app/tessdata || true
 

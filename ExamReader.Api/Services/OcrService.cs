@@ -27,17 +27,42 @@ public class OcrService : IOcrService
 
         try
         {
-            string rawText;
-            using var engine = new TesseractEngine(_tessDataPath, "tur", EngineMode.Default);
-            using var pix = Pix.LoadFromFile(tempPath);
-            using var page = engine.Process(pix);
-            rawText = page.GetText().Trim();
+            string rawText = string.Empty;
+            try
+            {
+                using var engine = new TesseractEngine(_tessDataPath, "tur", EngineMode.Default);
+                using var pix = Pix.LoadFromFile(tempPath);
+                using var page = engine.Process(pix);
+                rawText = page.GetText().Trim();
+            }
+            catch (Exception)
+            {
+                // Linux / Container CLI Fallback: tesseract CLI aracılığıyla doğrudan oku
+                var psi = new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = "tesseract",
+                    Arguments = $"\"{tempPath}\" stdout -l tur",
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                using var proc = System.Diagnostics.Process.Start(psi);
+                if (proc != null)
+                {
+                    rawText = await proc.StandardOutput.ReadToEndAsync();
+                    await proc.WaitForExitAsync();
+                    rawText = rawText.Trim();
+                }
+            }
 
             return Parse(rawText);
         }
         finally
         {
-            File.Delete(tempPath);
+            if (File.Exists(tempPath))
+                File.Delete(tempPath);
         }
     }
 

@@ -23,7 +23,14 @@ public class OcrController : ControllerBase
         if (image is null || image.Length == 0)
             return BadRequest("Görüntü dosyası gereklidir.");
 
-        var result = await _ocrService.ExtractAsync(image);
-        return Ok(result);
+        try
+        {
+            var result = await _ocrService.ExtractAsync(image);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { error = ex.Message, details = ex.ToString() });
+        }
     }
 }
