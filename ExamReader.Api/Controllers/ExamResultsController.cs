@@ -39,6 +39,6 @@ public class ExamResultsController : ControllerBase
 
         await _service.AddAsync(examResult);
 
-        return Created();
+        return Ok(examResult);
     }
 }

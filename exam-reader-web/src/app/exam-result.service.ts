@@ -34,8 +34,8 @@ export class ExamResultService {
     return this.http.get<ExamResult[]>(this.apiUrl);
   }
 
-  add(request: CreateExamResultRequest): Observable<void> {
-    return this.http.post<void>(this.apiUrl, request);
+  add(request: CreateExamResultRequest): Observable<any> {
+    return this.http.post<any>(this.apiUrl, request);
   }
 
   sendToOcr(imageFile: File): Observable<OcrResult> {
